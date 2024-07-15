@@ -1,10 +1,10 @@
 # [level 1] 최대공약수와 최소공배수 - 12940 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12940?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12940?language=javascript) 
 
 ### 성능 요약
 
-메모리: 4.15 MB, 시간: 0.02 ms
+메모리: 33.5 MB, 시간: 0.23 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 07월 15일 14:30:02
+2024년 07월 15일 14:32:19
 
 ### 문제 설명
 
