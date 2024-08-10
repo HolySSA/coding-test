@@ -1,10 +1,10 @@
 # [level 2] n^2 배열 자르기 - 87390 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87390) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87390?language=javascript) 
 
 ### 성능 요약
 
-메모리: 22.6 MB, 시간: 39.39 ms
+메모리: 49.1 MB, 시간: 5.38 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 08월 10일 21:34:03
+2024년 08월 10일 21:36:14
 
 ### 문제 설명
 
