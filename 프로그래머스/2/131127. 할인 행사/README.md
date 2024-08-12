@@ -1,10 +1,10 @@
 # [level 2] 할인 행사 - 131127 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131127?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131127?language=javascript) 
 
 ### 성능 요약
 
-메모리: 8.91 MB, 시간: 100.51 ms
+메모리: 42.2 MB, 시간: 58.62 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 08월 12일 09:37:41
+2024년 08월 12일 10:14:56
 
 ### 문제 설명
 
