@@ -4,7 +4,6 @@
 using namespace std;
 
 int answer = 0;
-bool visited[20];
 
 void DFS(int idx, int sum, vector<int> numbers, int target){
     if(idx == numbers.size()){
