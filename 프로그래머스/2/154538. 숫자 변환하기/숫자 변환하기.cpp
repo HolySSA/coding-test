@@ -9,7 +9,7 @@ using namespace std;
 int dp[MAX];
 
 int solution(int x, int y, int n) {
-    fill(dp, dp+MAX, MAX);
+    fill(dp, dp+y+1, MAX);
 
     dp[y] = 0;
     
