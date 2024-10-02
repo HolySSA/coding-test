@@ -16,7 +16,7 @@ function solution(n, k, enemy) {
                 return acc + val
         }, 0);
         
-        if(n - curSum >= 0 && curK >= 0)
+        if(n - curSum >= 0)
             low = mid + 1;
         else
             high = mid - 1;
