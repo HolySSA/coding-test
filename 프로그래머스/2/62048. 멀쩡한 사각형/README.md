@@ -1,10 +1,10 @@
 # [level 2] 멀쩡한 사각형 - 62048 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/62048?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/62048) 
 
 ### 성능 요약
 
-메모리: 3.67 MB, 시간: 0.01 ms
+메모리: 33.5 MB, 시간: 0.06 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 19일 09:06:03
+2024년 10월 17일 10:14:55
 
 ### 문제 설명
 
