@@ -1,55 +1,54 @@
-// 1285 동전 뒤집기
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
-const int INF = 1e9;
+int n, result = 2e9;
+vector<string> coins;
 
-int n;
-int result = INF;
-int a[24];
-string s;
+int Reverse(int row) {
+	int sum = 0;
+	for (int j = 0; j < n; j++) {
+		int h_cnt = 0; // 해당 행에서 앞면의 개수
+		int t_cnt = 0; // 해당 행에서 뒷면의 개수
 
-void func(int cur) {
-	if (cur == n + 1) {
-		int sum = 0;
-		for (int i = 1; i <= 1 << (n - 1); i *= 2) {
-			int cnt = 0;
-
-			for (int j = 1; j <= n; j++) {
-				if (a[j] & i)
-					cnt++;
+		for (int i = 0; i < n; i++) {
+			if (((row >> i) & 1) == 1) {
+				if (coins[i][j] == 'H')
+					t_cnt++;
+				else
+					h_cnt++;
 			}
-
-			sum += min(cnt, n - cnt);
+			else {
+				if (coins[i][j] == 'H')
+					h_cnt++;
+				else
+					t_cnt++;
+			}
 		}
 
-		result = min(result, sum);
-		return;
+		// 앞면, 뒷면 비교 후 더 적은 면을 더한다. => 뒤집으면 되기 때문.
+		sum += min(h_cnt, t_cnt);
 	}
 
-	a[cur] = ~a[cur]; //cur행 뒤집기
-	func(cur + 1);
-	a[cur] = ~a[cur]; //cur행 뒤집었던거 다시 뒤집음 (그대로 진행)
-	func(cur + 1);
+	return sum;
 }
 
-int main(void) {
-	ios_base::sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-
+int main() {
 	cin >> n;
-	for (int i = 1; i <= n; i++) {
-		cin >> s;
-		int v = 1;
-		for (int j = 0; j < s.size(); j++) {
-			if (s[j] == 'T') a[i] |= v;
-			v *= 2;
-		}
+
+	for (int i = 0; i < n; i++) {
+		string str; cin >> str;
+		coins.push_back(str);
 	}
 
-	func(1);
+	// 각 행을 뒤집었을 경우 모두 확인. (n이 3이라면) 1 << 3 (1000 == 8) 
+	for (int row = 0; row < (1 << n); row++)
+	{
+		result = min(result, Reverse(row));
+	}
 
 	cout << result;
+
 	return 0;
 }
