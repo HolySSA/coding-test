@@ -12,11 +12,12 @@ int solution(int n, vector<vector<int>> results) {
     }
     
     // 플로이드-와샬 알고리즘
-    for(int i = 1; i <= n; i++) {
-        for(int j = 1; j <= n; j++) {
-            for(int k = 1; k <= n; k++) {
-                if(fight[j][i] == 1 && fight[i][k] == 1)
-                    fight[j][k] = 1;
+    for(int k = 1; k <= n; k++) { // 중간
+        for(int i = 1; i <= n; i++) { // 시작
+            for(int j = 1; j <= n; j++) { // 끝
+                if(fight[i][k] == 1 && fight[k][j] == 1) {
+                    fight[i][j] = 1;
+                }
             }
         }
     }

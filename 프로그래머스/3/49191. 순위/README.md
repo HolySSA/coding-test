@@ -1,10 +1,10 @@
 # [level 3] 순위 - 49191 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/49191?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/49191?language=cpp) 
 
 ### 성능 요약
 
-메모리: 36.5 MB, 시간: 38.93 ms
+메모리: 4.21 MB, 시간: 1.48 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 11월 20일 11:01:37
+2024년 11월 20일 11:02:24
 
 ### 문제 설명
 
