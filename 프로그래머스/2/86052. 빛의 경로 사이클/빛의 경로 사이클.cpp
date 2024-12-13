@@ -5,51 +5,28 @@
 using namespace std;
 
 int n, m;
+vector<string> board;
 bool visited[501][501][4];
-int dr[] = { 0, 0, 1, -1 };
-int dc[] = { 1, -1, 0, 0 };
+int dr[] = { 0, 1, 0, -1 };
+int dc[] = { 1, 0, -1, 0 };
 
-int refraction(char node, int dir) {
-    if (node == 'L') {
-        if (dir == 0) return 3;
-        if (dir == 1) return 2;
-        if (dir == 2) return 0;
-        if (dir == 3) return 1;
-    } else if (node == 'R') {
-        if (dir == 0) return 2;
-        if (dir == 1) return 3;
-        if (dir == 2) return 1;
-        if (dir == 3) return 0;
+int shoot(int r, int c, int dir) {
+    int cnt = 0;
+    
+    while(!visited[r][c][dir]) {
+        visited[r][c][dir] = true;
+        cnt++;
+        
+        if (board[r][c] == 'L')
+            dir = (dir + 1) % 4;
+        else if (board[r][c] == 'R')
+            dir = (dir + 3) % 4;
+            
+        r = (r + dr[dir] + n) % n;
+        c = (c + dc[dir] + m) % m;
     }
-}
-
-int shoot(int r, int c, int dir, int length, vector<string> &grid) {
-    if (visited[r][c][dir])
-        return length;
- 
-    visited[r][c][dir] = true;
- 
-    int nr = r;
-    int nc = c;
-    int ndir = dir;
- 
-    if (grid[r][c] != 'S')
-        ndir = refraction(grid[r][c], dir);
     
-    nr = r + dr[ndir];
-    nc = c + dc[ndir];
-    
-    if (nr < 0)
-        nr = n - 1;
-    if (nc < 0)
-        nc = m - 1;
-    
-    if (nr == n)
-        nr = 0;
-    if (nc == m)
-        nc = 0;
- 
-    return shoot(nr, nc, ndir, length + 1, grid);
+    return cnt;
 }
 
 vector<int> solution(vector<string> grid) {
@@ -57,19 +34,20 @@ vector<int> solution(vector<string> grid) {
     
     n = grid.size();
     m = grid[0].length();
+    board = grid;
     
-    for (int r = 0; r < n; r++) {
-        for (int c = 0; c < m; c++) {
-            for (int d = 0; d < 4; d++) {
-                int result = shoot(r, c, d, 0, grid);
-                
-                if (result != 0)
+    for(int r = 0; r < n; r++) {
+        for(int c = 0; c < m; c++) {
+            for(int dir = 0; dir < 4; dir++) {
+                if (!visited[r][c][dir]) {
+                    int result = shoot(r, c, dir);
                     answer.push_back(result);
-            }
-        }
-    }
+                }
+            }
+        }
+    }
     
-    sort(answer.begin(), answer.end());
+    sort(answer.begin(), answer.end());
     
     return answer;
 }
