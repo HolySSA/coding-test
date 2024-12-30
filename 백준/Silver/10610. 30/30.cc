@@ -15,7 +15,7 @@ int main() {
 	cin >> n;
 	sort(n.begin(), n.end(), Comp);
 	
-	if (n.back() == '0') {
+	if (n.back() != '0') {
 		cout << -1;
 		return 0;
 	}
