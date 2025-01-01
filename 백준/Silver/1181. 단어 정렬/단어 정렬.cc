@@ -22,7 +22,7 @@ int main() {
 	}
 
 	sort(words.begin(), words.end(), Comp);
-    words.erase(unique(words.begin(), words.end()), words.end());
+    	words.erase(unique(words.begin(), words.end()), words.end());
 	
 	for (string w : words)
 		cout << w << '\n';
