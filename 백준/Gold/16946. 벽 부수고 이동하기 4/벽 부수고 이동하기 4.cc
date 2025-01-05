@@ -1,76 +1,109 @@
-// 16946 벽 부수고 이동하기 4
 #include <iostream>
 #include <queue>
+#include <vector>
+#include <set>
+#include <cstring>
 using namespace std;
 
-struct Info {
-	int r, c;
+struct Pos {
+    int r, c;
 };
 
 int n, m;
 int map[1000][1000];
+int result[1000][1000];
+int region[1000][1000];
+int regionSize[1000000];
 bool visited[1000][1000];
-int dr[] = { -1, 1, 0, 0 };
-int dc[] = { 0, 0, -1, 1 };
 
-void Move(int r, int c) {
-	queue<Info>q;
-	vector<Info>wall;
-	q.push({ r, c });
-	visited[r][c] = true;
+int dr[] = { 1, 0, -1, 0 };
+int dc[] = { 0, 1, 0, -1 };
 
-	int cnt = 1;
-	while (!q.empty()) {
-		int cr = q.front().r;
-		int cc = q.front().c;
-		q.pop();
+int calculateRegion(int r, int c, int id) {
+    queue<Pos> q;
+    q.push({ r, c });
+    visited[r][c] = true;
+    region[r][c] = id;
 
-		for (int i = 0; i < 4; i++) {
-			int nr = cr + dr[i];
-			int nc = cc + dc[i];
+    int cnt = 1;
+    while (!q.empty()) {
+        auto cur = q.front();
+        q.pop();
 
-			if (nr < 0 || nc < 0 || nr >= n || nc >= m)
-				continue;
+        for (int i = 0; i < 4; i++) {
+            int nr = cur.r + dr[i];
+            int nc = cur.c + dc[i];
 
-			if (map[nr][nc] == 0 && visited[nr][nc] == false) {
-				visited[nr][nc] = true;
-				q.push({ nr,nc });
-				cnt++;
-			}
-			// 인접한 벽 저장
-			else if (map[nr][nc] != 0 && visited[nr][nc] == false) {
-				visited[nr][nc] = true;
-				wall.push_back({ nr,nc });
-			}
-		}
-	}
-	// 인접한 벽을 기준으로 빈 칸(0) 갯수 더해준다
-	for (int i = 0; i < wall.size(); i++) {
-		map[wall[i].r][wall[i].c] += cnt;
-		visited[wall[i].r][wall[i].c] = false;
-	}
+            if (nr < 0 || nc < 0 || nr >= n || nc >= m)
+                continue;
+            if (map[nr][nc] == 1 || visited[nr][nc])
+                continue;
+
+            q.push({ nr, nc });
+            visited[nr][nc] = true;
+            region[nr][nc] = id;
+            cnt++;
+        }
+    }
+
+    return cnt;
 }
 
 int main() {
-	cin >> n >> m;
-	for (int i = 0; i < n; i++) {
-		string str; cin >> str;
-		for (int j = 0; j < m; j++) {
-			map[i][j] = str[j] - '0';
-		}
-	}
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			if (map[i][j] == 0 && visited[i][j] == false)
-				Move(i, j);
-		}
-	}
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cout << map[i][j] % 10;
-		}
-		cout << '\n';
-	}
+    cin >> n >> m;
 
-	return 0;
+    for (int i = 0; i < n; i++) {
+        string str; cin >> str;
+        for (int j = 0; j < m; j++) {
+            map[i][j] = str[j] - '0';
+        }
+    }
+
+    memset(region, -1, sizeof(region)); 
+    int regionID = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (map[i][j] == 0 && region[i][j] == -1) {
+                regionSize[regionID] = calculateRegion(i, j, regionID);
+                regionID++;
+            }
+        }
+    }
+
+    for (int r = 0; r < n; r++) {
+        for (int c = 0; c < m; c++) {
+            if (map[r][c] == 1) {
+                set<int> uniqueRegions;
+                int total = 1;
+
+                for (int i = 0; i < 4; i++) {
+                    int nr = r + dr[i];
+                    int nc = c + dc[i];
+
+                    if (nr < 0 || nc < 0 || nr >= n || nc >= m)
+                        continue;
+
+                    int neighborID = region[nr][nc];
+                    if (neighborID != -1 && uniqueRegions.find(neighborID) == uniqueRegions.end()) {
+                        uniqueRegions.insert(neighborID);
+                        total += regionSize[neighborID];
+                    }
+                }
+
+                result[r][c] = total % 10;
+            }
+            else
+                result[r][c] = 0;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cout << result[i][j];
+        }
+        cout << '\n';
+    }
+
+    return 0;
 }
