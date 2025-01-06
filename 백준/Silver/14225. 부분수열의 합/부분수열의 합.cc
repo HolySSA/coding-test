@@ -1,10 +1,10 @@
 #include<iostream>
 using namespace std;
 
-#define MAX 20000001
+#define MAX 20000000
 
 int n;
-int S[21];
+int S[20];
 bool visited[MAX];
 
 void Program(int idx, int sum){
@@ -26,8 +26,8 @@ int main(){
     Program(0, 0);
     
     int cnt = 1;
-	while(visited[cnt])
-        cnt++;
-    
-	cout<<cnt;
+    while(visited[cnt])
+    	cnt++;
+	
+    cout<<cnt;
 }
