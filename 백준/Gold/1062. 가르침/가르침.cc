@@ -1,5 +1,4 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
 using namespace std;
 
 int n, k, result = 0;
@@ -8,26 +7,26 @@ bool alphabet[26];
 
 void Teach(int idx, int cnt) {
 	if (cnt == k) {
-		int canRead = 0;
+		int check = 0;
 		for (int i = 0; i < n; i++) {
-			bool read = true;
+			bool canRead = true;
 			for (int j = 0; j < word[i].length(); j++) {
-				if (alphabet[word[i][j] - 'a'] == false) {
-					read = false;
+				if (!alphabet[word[i][j] - 'a']) {
+					canRead = false;
 					break;
 				}
 			}
 
-			if (read)
-				canRead++;
+			if (canRead)
+				check++;
 		}
 
-		result = max(result, canRead);
+		result = max(result, check);
 		return;
 	}
 
 	for (int i = idx; i < 26; i++) {
-		if (alphabet[i] == true)
+		if (alphabet[i])
 			continue;
 
 		alphabet[i] = true;
@@ -38,6 +37,7 @@ void Teach(int idx, int cnt) {
 
 int main() {
 	cin >> n >> k;
+
 	for (int i = 0; i < n; i++)
 		cin >> word[i];
 
@@ -47,15 +47,13 @@ int main() {
 	}
 
 	alphabet['a' - 'a'] = true;
+	alphabet['c' - 'a'] = true;
+	alphabet['i' - 'a'] = true;
 	alphabet['n' - 'a'] = true;
 	alphabet['t' - 'a'] = true;
-	alphabet['i' - 'a'] = true;
-	alphabet['c' - 'a'] = true;
-
 	k -= 5;
 
 	Teach(0, 0);
 	cout << result;
-
 	return 0;
 }
