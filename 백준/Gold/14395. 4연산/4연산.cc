@@ -32,7 +32,7 @@ void Calculate() {
 			q.push({ plus, cur.second + "+" });
 			visited.insert(plus);
 		}
-		if (cur.first != 0 && visited.find(1) == visited.end()) {
+		if (visited.find(1) == visited.end()) {
 			q.push({ 1, cur.second + "/" });
 			visited.insert(1);
 		}
