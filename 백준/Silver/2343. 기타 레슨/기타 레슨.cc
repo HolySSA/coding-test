@@ -28,8 +28,8 @@ int main() {
 	int low = 0, high = 0;
 	for (int i = 0; i < n; i++) {
 		cin >> video[i];
-		low = max(low, video[i]);\
-		high += video[i];\
+		low = max(low, video[i]);
+		high += video[i];
 	}
 
 	int answer = high;
