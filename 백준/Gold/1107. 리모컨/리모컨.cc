@@ -1,46 +1,41 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 using namespace std;
 
-int n, m, result = 0;
-bool btn[10];
+int n, m, answer = -1;
+bool broken[10];
 
-bool Check(int num) {
+bool PushButton(int num) {
 	string str = to_string(num);
-
-	for (int i = 0; i < str.size(); i++) {
-		if (btn[str[i] - '0'])
+	for (int i = 0; i < str.length(); i++) {
+		if (broken[str[i] - '0'])
 			return false;
 	}
 
 	return true;
 }
 
-
 int main() {
-	cin >> n;
-	cin >> m;
-
-	for (int i = 0; i < m; i++) {
-		int num; cin >> num;
-		btn[num] = true;
+	cin >> n >> m;
+	while (m--) {
+		int b; cin >> b;
+		broken[b] = true;
 	}
 
 	if (n == 100) {
-		cout << result;
+		cout << 0;
 		return 0;
 	}
 
-	result = abs(n - 100);
-
+	answer = abs(n - 100);
+	// 목표 채널은 500000까지, 따라서 그 위의 채널에서 목표 채널로 이동하는 경우도 포함해야한다.
 	for (int i = 0; i <= 1000000; i++) {
-		if (Check(i)) {
-			int tmp = abs(n - i) + to_string(i).size();
-			result = min(result, tmp);
+		if (PushButton(i)) {
+			int tmp = abs(i - n) + to_string(i).length(); // 채널 i에서 목표 채널까지 계산
+			answer = min(answer, tmp);
 		}
 	}
 
-	cout << result;
-
+	cout << answer;
 	return 0;
 }
