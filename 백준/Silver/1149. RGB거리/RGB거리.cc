@@ -1,22 +1,28 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-int dp[3][1001];   // [0][]빨 [1][]초 [2][]파
-int arr[3];        // [0]빨 [1]초 [2]파
+int n;
+int house[1000][3];
 
-int main(){
-    int n; cin>>n;
-    
-    for(int i=1; i<=n; i++){
-        cin>>arr[0]>>arr[1]>>arr[2];
-        
-        dp[0][i] = min(dp[1][i-1], dp[2][i-1]) + arr[0];
-        dp[1][i] = min(dp[0][i-1], dp[2][i-1]) + arr[1];
-        dp[2][i] = min(dp[0][i-1], dp[1][i-1]) + arr[2];
-    }
-    
-    cout<<min({dp[0][n], dp[1][n], dp[2][n]});
-    
-    return 0;
+int main() {
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		int r, g, b; cin >> r >> g >> b;
+
+		if (i == 0) {
+			house[i][0] = r;
+			house[i][1] = g;
+			house[i][2] = b;
+			continue;
+		}
+
+		house[i][0] = min(house[i - 1][1], house[i - 1][2]) + r;
+		house[i][1] = min(house[i - 1][0], house[i - 1][2]) + g;
+		house[i][2] = min(house[i - 1][0], house[i - 1][1]) + b;
+	}
+
+	cout << min({ house[n - 1][0], house[n - 1][1], house[n - 1][2] });
+	return 0;
 }
