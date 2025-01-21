@@ -1,27 +1,32 @@
-#include<iostream>
-#include<vector>
-#include<cstring>
+#include <iostream>
+#include <vector>
+#include <cstring>
 using namespace std;
 
 #define MAX 100001
 
-int v, result = 0, root = 0;
-vector<pair<int, int>> tree[MAX];
+struct Info
+{
+	int vertex, length;
+};
+
+int v, answer = -1, root = 0;
+vector<Info> tree[MAX];
 bool visited[MAX];
 
 void DFS(int idx, int distance) {
 	if (visited[idx])
 		return;
 
-	if (result < distance) {
-		result = distance;
+	if (answer < distance) {
+		answer = distance;
 		root = idx;
 	}
 
 	visited[idx] = true;
 	for (int i = 0; i < tree[idx].size(); i++) {
-		int next = tree[idx][i].first;
-		int dis = tree[idx][i].second;
+		int next = tree[idx][i].vertex;
+		int dis = tree[idx][i].length;
 
 		DFS(next, distance + dis);
 	}
@@ -29,24 +34,21 @@ void DFS(int idx, int distance) {
 
 int main() {
 	cin >> v;
-
 	for (int i = 0; i < v; i++) {
-		int x; cin >> x;
+		int num; cin >> num;
 		while (1) {
-			int y; cin >> y;
-			if (y == -1)
+			int ver, len; cin >> ver;
+			if (ver == -1)
 				break;
-			int l; cin >> l;
-
-			tree[x].push_back({ y, l });
+			cin >> len;
+			tree[num].push_back({ ver, len });
 		}
 	}
-
-	DFS(1, 0);
+	
+	DFS(1, 0); // root 찾기
 	memset(visited, false, sizeof(visited));
-	DFS(root, 0);
+	DFS(root, 0); // root에서 가장 먼 정점 사이 간선합이 지름
 
-	cout << result;
-
+	cout << answer;
 	return 0;
 }
