@@ -22,6 +22,7 @@ int main() {
 
     sort(lecture.begin(), lecture.end(), Comp);
 
+    // 선택한 강의 갯수(pq.size())-강의 가능일(lec.second) 비교
     for (auto& lec : lecture) {
         pq.push(lec.first);
         if (pq.size() > lec.second)
