@@ -3,7 +3,7 @@
 using namespace std;
 
 int n;
-char star[3072][6144];
+char star[3073][6145];
 
 void Star(int r, int c, int num) {
 	if (num == 3) {
@@ -28,10 +28,10 @@ int main() {
 	cin >> n;
 	memset(star, ' ', sizeof(star));
 
-	Star(0, n - 1, n);
+	Star(1, n, n);
 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n * 2; j++) {
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n * 2; j++) {
 			cout << star[i][j];
 		}
 		cout << '\n';
