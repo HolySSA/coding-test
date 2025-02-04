@@ -1,80 +1,82 @@
-// 1963 소수 경로
-#include<iostream>
-#include<cstring>
-#include<queue>
-#include<string>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <cmath>
+#include <string>
+#include <cstring>
 using namespace std;
 
-#define MAX 10000
+int t;
+vector<pair<int, int>> test;
+bool visited[10000];
 
-bool prime[MAX];
-bool Visit[MAX];
+bool isPrime(int n) {
+    if (n <= 1)
+        return false;
+    if (n == 2)
+        return true;
+    if (n % 2 == 0)
+        return false;
 
-int start, finish;
+    int limit = sqrt(n);
+    for (int i = 3; i <= limit; i += 2) {
+        if (n % i == 0)
+            return false;
+    }
 
-void Calculate()
-{
+    return true;
+}
+
+void BFS(int idx) {
     queue<pair<int, int>> q;
-    q.push(make_pair(start, 0));
-    Visit[start] = true;
+    q.push({ test[idx].first, 0 });
+    visited[test[idx].first] = true;
 
-    while (q.empty() == 0)
-    {
-        int Cur_Num = q.front().first;
-        int Cnt = q.front().second;
+    while (!q.empty()) {
+        auto cur = q.front();
         q.pop();
 
-        if (Cur_Num == finish)
-        {
-            cout << Cnt << '\n';
+        if (cur.first == test[idx].second) {
+            cout << cur.second << '\n';
             return;
         }
 
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                string s = to_string(Cur_Num);
-                s[i] = j + '0';
-                int nnum; nnum = stoi(s);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j <= 9; j++) {
+                string str = to_string(cur.first);
+                while (str.size() < 4)
+                    str = "0" + str;
 
-                if (prime[nnum] == false)
+                str[i] = j + '0';
+                int change = stoi(str);
+
+                if (change > 9999 || change < 1000)
                     continue;
-                if (Visit[nnum] == true)
+                if (visited[change])
                     continue;
-                if (nnum > 9999 || nnum < 1000)
+                if (!isPrime(change))
                     continue;
 
-                Visit[nnum] = true;
-                q.push(make_pair(nnum, Cnt + 1));
+                q.push({ change, cur.second + 1 });
+                visited[change] = true;
             }
         }
     }
+
     cout << "Impossible" << '\n';
 }
 
-int main(void)
-{
-    ios::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+int main() {
+	cin >> t;
+	test.resize(t);
+	for (int i = 0; i < t; i++) {
+		cin >> test[i].first >> test[i].second;
+	}
 
-    int t; cin >> t;
-
-    memset(prime, true, sizeof(prime));
-    for (int i = 2; i < MAX; i++)
-    {
-        for (int j = 2; i * j < MAX; j++)
-        {
-            prime[i * j] = false;
-        }
+    for (int i = 0; i < t; i++) {
+        BFS(i);
+        memset(visited, false, sizeof(visited));
     }
 
-    for (int i = 0; i < t; i++)
-    {
-        cin >> start >> finish;
-        Calculate();
-        memset(Visit, false, sizeof(Visit));
-    }
-
-    return 0;
+	return 0;
 }
