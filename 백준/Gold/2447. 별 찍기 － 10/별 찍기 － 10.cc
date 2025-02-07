@@ -6,7 +6,7 @@ int n;
 void Star(int r, int c, int num) {
 	if ((r / num) % 3 == 1 && (c / num) % 3 == 1)
 		cout << ' ';
-	else if ((num / 3 == 0))
+	else if (num == 1)
 		cout << '*';
 	else
 		Star(r, c, num / 3);
