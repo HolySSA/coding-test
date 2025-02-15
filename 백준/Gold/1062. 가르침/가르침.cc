@@ -1,33 +1,33 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int n, k, result = 0;
-string word[50];
+int n, k, answer = 0;
+vector<string> words;
 bool alphabet[26];
 
 void Teach(int idx, int cnt) {
 	if (cnt == k) {
-		int canRead = 0;
-		for (int i = 0; i < n; i++) {
-			bool read = true;
-			for (int j = 0; j < word[i].length(); j++) {
-				if (alphabet[word[i][j] - 'a'] == false) {
-					read = false;
+		int read = 0;
+		for (string s : words) {
+			bool check = true;
+			for (int i = 0; i < s.length(); i++) {
+				if (!alphabet[s[i] - 'a']) {
+					check = false;
 					break;
 				}
 			}
 
-			if (read)
-				canRead++;
+			if (check)
+				read++;
 		}
 
-		result = max(result, canRead);
+		answer = max(answer, read);
 		return;
 	}
 
 	for (int i = idx; i < 26; i++) {
-		if (alphabet[i] == true)
+		if (alphabet[i])
 			continue;
 
 		alphabet[i] = true;
@@ -38,24 +38,23 @@ void Teach(int idx, int cnt) {
 
 int main() {
 	cin >> n >> k;
-	for (int i = 0; i < n; i++)
-		cin >> word[i];
+	words.resize(n);
+	for (int i = 0; i < n; i++) {
+		cin >> words[i];
+	}
 
 	if (k < 5) {
-		cout << 0;
+		cout << answer;
 		return 0;
 	}
 
 	alphabet['a' - 'a'] = true;
+	alphabet['c' - 'a'] = true;
+	alphabet['i' - 'a'] = true;
 	alphabet['n' - 'a'] = true;
 	alphabet['t' - 'a'] = true;
-	alphabet['i' - 'a'] = true;
-	alphabet['c' - 'a'] = true;
 
-	k -= 5;
-
-	Teach(0, 0);
-	cout << result;
-
+	Teach(0, 5);
+	cout << answer;
 	return 0;
 }
