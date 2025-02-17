@@ -3,7 +3,7 @@
 using namespace std;
 
 string n;
-long long sum = 0;
+int sum = 0;
 
 bool Comp(char a, char b) {
 	return a > b;
@@ -23,7 +23,7 @@ int main() {
 	}
 
 	for (int i = 0; i < n.length(); i++) {
-		sum += (long long)(n[i] - '0');
+		sum += n[i] - '0';
 	}
 
 	if (sum % 3 == 0)
