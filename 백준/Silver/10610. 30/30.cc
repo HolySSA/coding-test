@@ -1,5 +1,3 @@
-// 모든 자리의 수의 합이 3의 배수일 경우 3의 배수
-// 즉, 만들 수 있는 최대값의 모든 자리 수 합이 3의 배수가 아니면 -1, 3의 배수면 최대값
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -14,7 +12,11 @@ bool Comp(char a, char b) {
 int main() {
 	cin >> n;
 	sort(n.begin(), n.end(), Comp);
-	
+
+	// 30 => 2와 5와 3의 배수
+	// 2의 배수: 2, 4, 6, 8, 0 으로 끝남
+	// 5의 배수: 5, 0 으로 끝남
+	// 3의 배수: 모든 자릿수의 합이 3의 배수
 	if (n.back() != '0') {
 		cout << -1;
 		return 0;
