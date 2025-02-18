@@ -1,18 +1,20 @@
 #include <iostream>
 using namespace std;
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+int CountZero(int n) {
+    int cnt = 0;
+    // 팩토리얼에서 10이 몇 번 곱해지는지 찾는 방법 => 5의 배수 개수 세기.
+    // 2는 많기 때문에 고려하지 않아도 됨.
+    for (int i = 5; i <= n; i *= 5) {
+        cnt += n / i;
+    }
 
-    int ans=0;
+    return cnt;
+}
 
-    int N;
-    cin>>N;
+int main() {
+    int n; cin >> n;
 
-    for (int i=5;i<=N;i*=5)
-        ans+=N/i;
-    cout<<ans<<'\n';
-  
+    cout << CountZero(n);
     return 0;
 }
