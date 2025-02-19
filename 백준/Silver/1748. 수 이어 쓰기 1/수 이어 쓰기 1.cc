@@ -5,8 +5,7 @@ int n;
 long long answer = 0;
 
 void Digits(int n) {
-    int start = 1;
-    int length = 1;
+    int start = 1, length = 1;
 
     while (start <= n) {
         long long end = min(n, start * 10 - 1);
