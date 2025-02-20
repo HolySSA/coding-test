@@ -1,20 +1,22 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 using namespace std;
 
+string str;
+vector<string> suffix;
 
-int main(){
-    string str; cin>>str;
-    string suffix[str.length()];
+int main() {
+	cin >> str;
+	while (!str.empty()) {
+		suffix.push_back(str);
+		str.erase(str.begin());
+	}
 
-    for(int i=0;i<str.length();i++){
-        suffix[i] = str.substr(i, str.length());
-    }
-    
-    sort(suffix, suffix+str.length());
-    
-    for(int i=0;i<str.length();i++)
-        cout<<suffix[i]<<'\n';
-    
-    return 0;
+	sort(suffix.begin(), suffix.end());
+	for (auto s : suffix) {
+		cout << s << '\n';
+	}
+	return 0;
 }
