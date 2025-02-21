@@ -1,39 +1,38 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int GCD(int a, int b){
-    if(b==0)
-        return a;
-    else
-        return GCD(b, a%b);
+int t, n;
+vector<long long> answer;
+
+int GCD(int a, int b) {
+	if (b == 0) return a;
+	return GCD(b, a % b);
 }
 
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
-	
-	int t; cin>>t;
-    
-	while(t--){
-		int n; cin>>n;
+int main() {
+	cin >> t;
+	answer.resize(t);
+	for (int i = 0; i < t; i++) {
+		cin >> n;
+		vector<int> cases(n);
 
-		vector<int> arr;
-		for(int i=0; i<n; i++) {
-			int value; cin>>value;
-			arr.push_back(value);
+		for (int j = 0; j < n; j++) {
+			cin >> cases[j];
 		}
 
-		long long sum=0;
-        
-		for(int i=0; i<n-1; i++) {
-			for(int j=i+1; j<n; j++) {
-				sum += GCD(arr[i], arr[j]);
+		long long sum = 0;
+		for (int j = 0; j < cases.size() - 1; j++) {
+			for (int k = j + 1; k < cases.size(); k++) {
+				sum += GCD(cases[j], cases[k]);
 			}
 		}
-		cout<<sum<<"\n";
+
+		answer[i] = sum;
 	}
-    
-    return 0;
+
+	for (auto a : answer) {
+		cout << a << '\n';
+	}
+	return 0;
 }
