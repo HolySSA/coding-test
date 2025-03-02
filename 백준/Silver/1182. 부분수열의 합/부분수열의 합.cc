@@ -1,28 +1,26 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-int n, s, answer = 0;
-vector<int> sums;
+int n, s, result = 0;
+int num[20];
 
-void Calculate(int idx, int sum) {
+void Plus(int idx, int sum) {
 	if (idx == n)
 		return;
-	if (sum + sums[idx] == s)
-		answer++;
+	if (sum + num[idx] == s)
+		result++;
 
-	Calculate(idx + 1, sum);
-	Calculate(idx + 1, sum + sums[idx]);
+	Plus(idx + 1, sum);
+	Plus(idx + 1, sum + num[idx]);
 }
 
 int main() {
 	cin >> n >> s;
-	sums.resize(n);
-	for (int i = 0; i < n; i++) {
-		cin >> sums[i];
-	}
+	for (int i = 0; i < n; i++)
+		cin >> num[i];
 
-	Calculate(0, 0);
-	cout << answer;
+	Plus(0, 0);
+
+	cout << result;
 	return 0;
 }
