@@ -1,26 +1,30 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int n, s, result = 0;
-int num[20];
+int n, s, answer = 0;
+vector<int> v;
 
-void Plus(int idx, int sum) {
-	if (idx == n)
+void Subsequence(int idx, int cnt, int sum) {
+	if (idx == n) {
+		if (sum == s && cnt > 0)
+			answer++;
+
 		return;
-	if (sum + num[idx] == s)
-		result++;
+	}
 
-	Plus(idx + 1, sum);
-	Plus(idx + 1, sum + num[idx]);
+	Subsequence(idx + 1, cnt, sum);
+	Subsequence(idx + 1, cnt + 1, sum + v[idx]);
 }
 
 int main() {
 	cin >> n >> s;
-	for (int i = 0; i < n; i++)
-		cin >> num[i];
+	v.resize(n);
+	for (int i = 0; i < n; i++) {
+		cin >> v[i];
+	}
 
-	Plus(0, 0);
-
-	cout << result;
+	Subsequence(0, 0, 0);
+	cout << answer;
 	return 0;
 }
