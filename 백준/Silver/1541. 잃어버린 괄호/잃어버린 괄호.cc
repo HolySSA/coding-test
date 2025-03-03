@@ -1,30 +1,37 @@
 #include <iostream>
+#include <vector>
 #include <string>
 using namespace std;
 
-string input, num;
+string str, tmp = "";
+vector<int> number;
+vector<char> sign;
 int answer = 0;
 bool isMinus = false;
 
 int main() {
-	cin >> input;
+	cin >> str;
 
-	for (int i = 0; i <= input.length(); i++) {
-		// - 뒤에 -가 나와도
-		// - ( ... ) 여기까지 계산하고 뒤에 - () 를 처리하면 다 -로 처리 가능
-		if (input[i] == '+' || input[i] == '-' || i == input.length()) {
-			if (isMinus)
-				answer -= stoi(num);
-			else
-				answer += stoi(num);
-
-			num = "";
+	for (int i = 0; i < str.length(); i++) {
+		if (isdigit(str[i]))
+			tmp += str[i];
+		else {
+			number.push_back(stoi(tmp));
+			sign.push_back(str[i]);
+			tmp = "";
 		}
-		else
-			num += input[i];
+	}
+	number.push_back(stoi(tmp));
 
-		if (input[i] == '-')
+	answer = number[0];
+	for (int i = 0; i < sign.size(); i++) {
+		if (sign[i] == '-')
 			isMinus = true;
+
+		if (isMinus)
+			answer -= number[i + 1];
+		else
+			answer += number[i + 1];
 	}
 
 	cout << answer;
