@@ -1,37 +1,49 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int n, result;
-int board[15]; // 가로
+int n, answer = 0;
+int board[15][15];
 
-bool Check(int row) {
-	for (int i = 0; i < row; i++) {
-		// 같은 라인에 있거나 대각선이면 false
-		if (board[i] == board[row] || abs(board[row] - board[i]) == row - i)
+bool Check(int r, int c) {
+	// 세로
+	for (int i = 0; i < n; i++) {
+		if (board[i][c] == 1)
+			return false;
+	}
+
+	// 왼쪽 위 대각선
+	for (int i = 1; r - i >= 0 && c - i >= 0; i++) {
+		if (board[r - i][c - i] == 1)
+			return false;
+	}
+
+	// 오른쪽 위 대각선
+	for (int i = 1; r - i >= 0 && c + i < n; i++) {
+		if (board[r - i][c + i] == 1)
 			return false;
 	}
 
 	return true;
 }
 
-void Nqueen(int node) {
-	if (node == n)
-		result++;
-	else
-	{
-		for (int i = 0; i < n; i++) {
-			board[node] = i;
-			if (Check(node))
-				Nqueen(node + 1);
+void NQueen(int row) {
+	if (row == n) {
+		answer++;
+		return;
+	}
+
+	for (int col = 0; col < n; col++) {
+		if (Check(row, col)) {
+			board[row][col] = 1;
+			NQueen(row + 1);
+			board[row][col] = 0;
 		}
 	}
 }
 
 int main() {
 	cin >> n;
-
-	Nqueen(0);
-	cout << result;
-
+	NQueen(0);
+	cout << answer;
 	return 0;
 }
