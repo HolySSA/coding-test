@@ -1,26 +1,24 @@
 #include <iostream>
 #include <set>
-#include <string>
 using namespace std;
 
-int N, M, ans;
-string n_str, m_str;
-set<string> n;
+int n, m, answer = 0;
+string str;
+set<string> s;
 
 int main() {
-    cin >> N >> M;
-    
-    for (int i=0;i<N;i++) {
-        cin>>n_str;
-        n.insert(n_str);
-    }
-    for (int i=0;i<M;i++) {
-        cin>>m_str;
-        if (n.find(m_str) != n.end()) {
-            ans++;
-        }
-    }
-    cout << ans;
-    
-    return 0;
+	cin >> n >> m;
+	while (n--) {
+		cin >> str;
+		s.insert(str);
+	}
+
+	while (m--) {
+		cin >> str;
+		if (s.find(str) != s.end())
+			answer++;
+	}
+
+	cout << answer;
+	return 0;
 }
