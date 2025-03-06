@@ -1,21 +1,26 @@
 #include <iostream>
-#include <map>
+#include <set>
 using namespace std;
- 
+
+string str;
+set<string> s;
+
+void Calculate(int idx, int size) {
+	if (idx - size < 0)
+		return;
+
+	s.insert(str.substr(idx - size, size));
+}
+
 int main() {
-    string s;
-    cin>>s;
- 
-    map<string, bool> maps;
- 
-    string str = "";
-    for(int i=0; i<s.size(); i++) {
-        for (int j=i; j <s.size(); j++) {
-            str += s[j];
-            maps.insert(make_pair(str, true)); // map은 중복불가
-        }
-        str = "";
-    }
- 
-    cout << maps.size();
+	cin >> str;
+
+	for (int size = 1; size <= str.length(); size++) {
+		for (int i = size; i <= str.length(); i++) {
+			Calculate(i, size);
+		}
+	}
+
+	cout << s.size();
+	return 0;
 }
