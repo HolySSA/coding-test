@@ -1,40 +1,36 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-#define MAX 1001
+int n, answer = 0;
+int arr[1001], dp1[1001], dp2[1001];
 
-int dp[MAX];
-int b_dp[MAX];
-int arr[MAX];
+int main() {
+	cin >> n;
+	for (int i = 1; i <= n; i++) {
+		cin >> arr[i];
+		dp1[i] = 1;
+		dp2[i] = 1;
+	}
 
-int main(){
-    int n; cin>>n;
-    
-    for(int i=1;i<=n;i++)
-        cin>>arr[i];
-    
-    for(int i=1;i<=n;i++){
-        dp[i]=1;
-        for(int j=1;j<i;j++){
-            if(arr[i]>arr[j])
-                dp[i] = max(dp[i], dp[j]+1);
-        }
-    }
-    
-    for(int i=n;i>=1;i--){
-        b_dp[i]=1;
-        for(int j=n;j>i;j--){
-            if(arr[i]>arr[j])
-                b_dp[i] = max(b_dp[i], b_dp[j]+1);
-        }
-    }
-    
-    int result = 0;
-    
-    for(int i=1;i<=n;i++)
-        result = max(result, dp[i]+b_dp[i]-1);
-    
-    cout<<result;
-    
-    return 0;
+	// 증가
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j < i; j++) {
+			if (arr[j] < arr[i])
+				dp1[i] = max(dp1[i], dp1[j] + 1);
+		}
+	}
+
+	// 감소
+	for (int i = n; i >= 1; i--) {
+		for (int j = n; j > i; j--) {
+			if (arr[j] < arr[i])
+				dp2[i] = max(dp2[i], dp2[j] + 1);
+		}
+	}
+
+	for (int i = 1; i <= n; i++) {
+		answer = max(answer, dp1[i] + dp2[i] - 1);
+	}
+	cout << answer;
+	return 0;
 }
