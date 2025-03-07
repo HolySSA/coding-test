@@ -27,7 +27,7 @@ int main() {
 	while (low <= high) {
 		long long mid = (low + high) / 2;
 
-		long long cnt = Cut(mid);
+		int cnt = Cut(mid);
 		if (cnt >= n) {
 			answer = max(answer, mid);
 			low = mid + 1;
