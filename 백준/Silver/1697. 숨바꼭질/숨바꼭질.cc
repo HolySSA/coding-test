@@ -37,7 +37,6 @@ int HideAndSeek() {
 
 int main() {
 	cin >> n >> k;
-
 	cout << HideAndSeek();
 	return 0;
 }
