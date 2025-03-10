@@ -3,35 +3,39 @@
 #include <vector>
 using namespace std;
 
-stack<int> st;
-vector<char> v;
+int n, num, cur = 1;
+bool impossible = false;
+stack<int> nums;
+vector<char> answer;
 
 int main() {
-	ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-    
-	int n, cnt=1;
 	cin >> n;
-    
-	for(int i=0; i<n; i++){
-		int x; cin>>x;
-        
-		while(cnt<=x){
-			v.push_back('+');
-			st.push(cnt);
-			cnt++;
+
+	while (n--) {
+		cin >> num;
+
+		if (impossible)
+			continue;
+		
+		while (cur <= num) {
+			nums.push(cur++);
+			answer.push_back('+');
 		}
 
-		if(x == st.top()){
-			st.pop();
-			v.push_back('-');
-		}
-		else{
-			cout<<"NO";
-			return 0;
-		}
+		if (nums.top() != num)
+			impossible = true;
+
+		nums.pop();
+		answer.push_back('-');
 	}
-	for(int i=0; i<v.size(); i++) {
-		cout<<v[i]<<"\n";
+
+	if (impossible) {
+		cout << "NO";
+		return 0;
 	}
+
+	for (char a : answer) {
+		cout << a << '\n';
+	}
+	return 0;
 }
