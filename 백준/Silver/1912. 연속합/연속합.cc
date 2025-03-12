@@ -1,30 +1,26 @@
-#include<iostream>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-#define MAX 100001
+int n, answer;
+vector<int> v;
+vector<int> dp;
 
-int dp[MAX];
-int arr[MAX];
+int main() {
+	cin >> n;
+	v.resize(n);
+	dp.resize(n);
+	for (int i = 0; i < n; i++) {
+		cin >> v[i];
+	}
+	
+	dp[0] = v[0];
+	answer = dp[0];
+	for (int i = 1; i < n; i++) {
+		dp[i] = max(dp[i - 1] + v[i], v[i]);
+		answer = max(answer, dp[i]);
+	}
 
-int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(NULL); cout.tie(NULL);
-    
-    int n; cin>>n;
-    
-    for(int i=1;i<=n;i++){
-        cin>>arr[i];
-    }
-    
-    int sum = -1000;
-    dp[0]=0;
-    
-    for(int i=1; i<=n; ++i){
-        dp[i] = max(arr[i], dp[i-1]+arr[i]);
-        sum = max(sum, dp[i]);
-    }
-    
-    cout<<sum;    
-
-    return 0;
+	cout << answer;
+	return 0;
 }
