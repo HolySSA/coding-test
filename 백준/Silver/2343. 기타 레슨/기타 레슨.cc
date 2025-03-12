@@ -3,19 +3,21 @@
 using namespace std;
 
 int n, m;
-vector<int> video;
+vector<int> lecture;
 
-bool canDivide(int maxSize) {
+bool Bluray(int size) {
 	int cnt = 1, sum = 0;
-	for (int length : video) {
-		if (sum + length > maxSize) {
-			cnt++;
-			sum = 0;
-		}
-
-		sum += length;
-		if (length > maxSize)
+	for (int length : lecture) {
+		if (length > size)
 			return false;
+
+		if (sum + length > size) {
+			cnt++;
+			sum = length;
+		}
+		else {
+			sum += length;
+		}
 	}
 
 	return cnt <= m;
@@ -23,27 +25,24 @@ bool canDivide(int maxSize) {
 
 int main() {
 	cin >> n >> m;
-	video.resize(n);
+	lecture.resize(n);
 
 	int low = 0, high = 0;
 	for (int i = 0; i < n; i++) {
-		cin >> video[i];
-		low = max(low, video[i]);
-		high += video[i];
+		cin >> lecture[i];
+		low = max(low, lecture[i]);
+		high += lecture[i];
 	}
 
-	int answer = high;
 	while (low <= high) {
 		int mid = (low + high) / 2;
-		if (canDivide(mid)) {
-			answer = mid;
+
+		if (Bluray(mid))
 			high = mid - 1;
-		}
-		else {
+		else
 			low = mid + 1;
-		}
 	}
 
-	cout << answer;
+	cout << low;
 	return 0;
 }
