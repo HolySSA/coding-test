@@ -4,7 +4,7 @@ using namespace std;
 int a, b, v, cur = 0, answer = 1;
 
 int main() {
-	cin >> a >> b >> v;
+    cin >> a >> b >> v;
 
     answer += (v - a) / (a - b);
 
